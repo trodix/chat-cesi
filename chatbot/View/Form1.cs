@@ -17,7 +17,7 @@ namespace chatbot
         public Chat myChat;
         public Bot bot;
         public Human human;
-        public ChatMessage PreviousMessage;
+        public ChatMessage previousMessage;
 
         public Form1()
         {
@@ -27,12 +27,16 @@ namespace chatbot
 
         private void init()
         {
-            this.myChat = new Chat();
-            this.bot = new Bot();
-            this.human = new Human();
+            myChat = new Chat();
+
+            bot = new Bot();
+
+            human = new Human();
 
             myChat.Users.Add(bot);
             myChat.Users.Add(human);
+
+            //Debug.WriteLine("*** NB MESSAGE : " + bot.listMessages.Count + " ***" );
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -42,30 +46,33 @@ namespace chatbot
             write("User: " + input);
             ChatMessage msg = new ChatMessage(human, input);
             bool isKnown = bot.ContainMessage(msg);
+
             Debug.WriteLine(isKnown);
+
             if (isKnown)
             {
-                msg.score++;
-                ChatMessage InDatabaseMsg = bot.listMessages.Find(
+                ChatMessage botMsg = bot.listMessages.Find(
                     r => msg.content == r.content
                 );
-                Debug.WriteLine(InDatabaseMsg.content);
-                if (InDatabaseMsg.responses.Count > 0)
-                {
-                    ChatMessage Response = InDatabaseMsg.responses[0];
-                    Debug.WriteLine(Response.content);
-                    write("Bot: " + Response.content);
-                } else
-                {
-                    PreviousMessage.responses.Add(msg);
-                }
+                botMsg.score++;
 
-            } else
+                Debug.WriteLine(botMsg.content);
+
+                //previousMessage.responses.Add(msg);
+                botMsg.responses.Add(previousMessage);
+
+                Debug.WriteLine(botMsg.content);
+
+                write("Bot : " + botMsg.responses[0].content);
+            }
+            else
             {
+                ChatMessage Response = bot.listMessages[0];
+                write("Bot: " + Response.content);
                 bot.listMessages.Add(msg);
             }
-
-            PreviousMessage = msg;
+            
+            previousMessage = msg;
         }
 
         public void write(string payload)

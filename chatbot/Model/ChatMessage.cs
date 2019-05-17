@@ -14,13 +14,13 @@ namespace chatbot.Model
         public int score { get; set; }
         public List<ChatMessage> responses { get; set; }
 
-        public ChatMessage(IUser owner, string content)
+        public ChatMessage(IUser pOwner, string pContent)
         {
-            this.Id = Guid.NewGuid();
-            this.owner = owner;
-            this.content = content;
-            this.score = 0;
-            this.responses = new List<ChatMessage>();
+            Id = Guid.NewGuid();
+            owner = pOwner;
+            content = pContent;
+            score = 0;
+            responses = new List<ChatMessage>();
         }
     }
 }
