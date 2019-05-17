@@ -22,5 +22,20 @@ namespace chatbot.Model
             score = 0;
             responses = new List<ChatMessage>();
         }
+
+        public static string satanize(string payload)
+        {
+            string cleanResponse = "";
+            var charsToRemove = new string[] {",", ".", ";", "'", " " };
+
+            cleanResponse = payload.ToLower();
+
+            foreach (var c in charsToRemove)
+            {
+                cleanResponse = cleanResponse.Replace(c, string.Empty);
+            }
+
+            return cleanResponse;
+        }
     }
 }

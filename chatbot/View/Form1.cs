@@ -52,7 +52,7 @@ namespace chatbot
             if (isKnown)
             {
                 ChatMessage botMsg = bot.listMessages.Find(
-                    r => msg.content == r.content
+                    r => ChatMessage.satanize(msg.content).Equals(ChatMessage.satanize(r.content))
                 );
                 botMsg.score++;
 
@@ -63,11 +63,11 @@ namespace chatbot
 
                 Debug.WriteLine(botMsg.content);
 
-                write("Bot : " + botMsg.responses[0].content);
+                write("Bot : " + Tools.GetHighterScoreResponse(botMsg.responses).content);
             }
             else
             {
-                ChatMessage Response = bot.listMessages[0];
+                ChatMessage Response = Tools.GetHighterScoreResponse(bot.listMessages);
                 write("Bot: " + Response.content);
                 bot.listMessages.Add(msg);
             }

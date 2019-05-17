@@ -54,7 +54,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
@@ -72,8 +71,8 @@
     <Compile Include="Model\Chat.cs" />
     <Compile Include="Model\ChatMessage.cs" />
     <Compile Include="Model\Human.cs" />
-    <Compile Include="Model\MessageJSON.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="Tools.cs" />
     <Compile Include="View\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
