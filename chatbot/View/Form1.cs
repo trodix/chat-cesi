@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -41,6 +42,20 @@ namespace chatbot
             richTextBox1.AppendText(Environment.NewLine);
             ChatMessage msg = new ChatMessage(human, input);
             bool isKnown = bot.ContainMessage(msg);
+            Debug.WriteLine(isKnown);
+            if (isKnown)
+            {
+                msg.score++;
+                ChatMessage InDatabaseMsg = bot.listMessages.Find(r => msg.content == r.content);
+                Debug.WriteLine(InDatabaseMsg.content);
+                ChatMessage Response = InDatabaseMsg.responses[0];
+                Debug.WriteLine(Response.content);
+                richTextBox1.AppendText(Response.content);
+                richTextBox1.AppendText(Environment.NewLine);
+            } else
+            {
+                bot.listMessages.Add(msg);
+            }
         }
     }
 }
