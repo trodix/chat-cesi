@@ -17,6 +17,7 @@ namespace chatbot
         public Chat myChat;
         public Bot bot;
         public Human human;
+        public ChatMessage PreviousMessage;
 
         public Form1()
         {
@@ -38,24 +39,39 @@ namespace chatbot
         {
 
             string input = textBox1.Text;
-            richTextBox1.AppendText(input);
-            richTextBox1.AppendText(Environment.NewLine);
+            write("User: " + input);
             ChatMessage msg = new ChatMessage(human, input);
             bool isKnown = bot.ContainMessage(msg);
             Debug.WriteLine(isKnown);
             if (isKnown)
             {
                 msg.score++;
-                ChatMessage InDatabaseMsg = bot.listMessages.Find(r => msg.content == r.content);
+                ChatMessage InDatabaseMsg = bot.listMessages.Find(
+                    r => msg.content == r.content
+                );
                 Debug.WriteLine(InDatabaseMsg.content);
-                ChatMessage Response = InDatabaseMsg.responses[0];
-                Debug.WriteLine(Response.content);
-                richTextBox1.AppendText(Response.content);
-                richTextBox1.AppendText(Environment.NewLine);
+                if (InDatabaseMsg.responses.Count > 0)
+                {
+                    ChatMessage Response = InDatabaseMsg.responses[0];
+                    Debug.WriteLine(Response.content);
+                    write("Bot: " + Response.content);
+                } else
+                {
+                    PreviousMessage.responses.Add(msg);
+                }
+
             } else
             {
                 bot.listMessages.Add(msg);
             }
+
+            PreviousMessage = msg;
+        }
+
+        public void write(string payload)
+        {
+            richTextBox1.AppendText(payload);
+            richTextBox1.AppendText(Environment.NewLine);
         }
     }
 }
