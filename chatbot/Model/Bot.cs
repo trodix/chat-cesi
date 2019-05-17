@@ -23,13 +23,14 @@ namespace chatbot.Model
 
             foreach (ChatMessage message in listMessages)
             {
-                if(message.content.Contains(msg.content))
+                string satanized = ChatMessage.satanize(message.content);
+
+                if (satanized.Contains(ChatMessage.satanize(msg.content)))
                 {
                     return true;
                 }
             }
             return false;
         }
-
     }
 }
