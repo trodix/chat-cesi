@@ -1,4 +1,5 @@
-﻿using chatbot.Model;
+﻿using chatbot.Controller;
+using chatbot.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace chatbot
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+            log4net.Config.XmlConfigurator.Configure();
+
         }
     }
 }

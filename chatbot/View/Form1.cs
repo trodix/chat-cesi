@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using log4net;
+using chatbot.Controller;
 
 namespace chatbot
 {
@@ -21,6 +21,7 @@ namespace chatbot
         public ChatMessage previousMessage;
         public static bool newer = false;
 
+
         public Form1()
         {
             InitializeComponent();
@@ -28,6 +29,9 @@ namespace chatbot
             // Activate Keyboard press detection
             KeyPreview = true;
             KeyUp += new KeyEventHandler(TextBox1_KeyUp);
+            SessionControler.init();
+            SessionControler.getInstance().getLog().Info(DateTime.Now + " : init OK");
+
         }
 
         private void init()
@@ -82,8 +86,6 @@ namespace chatbot
                 }
                 else
                 {
-
-
                     write("User: " + input);
 
                     ChatMessage msg = new ChatMessage(human, input);
