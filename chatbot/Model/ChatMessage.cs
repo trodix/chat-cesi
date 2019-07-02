@@ -35,7 +35,7 @@ namespace chatbot.Model
                 cleanResponse = cleanResponse.Replace(c, string.Empty);
             }
 
-            return payload;
+            return cleanResponse;
         }
     }
 }
