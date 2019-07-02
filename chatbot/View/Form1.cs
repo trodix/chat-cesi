@@ -18,6 +18,7 @@ namespace chatbot
         public Bot bot;
         public Human human;
         public ChatMessage previousMessage;
+        public static bool newer = false;
 
         public Form1()
         {
@@ -41,38 +42,48 @@ namespace chatbot
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-            string input = textBox1.Text;
-            write("User: " + input);
-            ChatMessage msg = new ChatMessage(human, input);
-            bool isKnown = bot.ContainMessage(msg);
-
-            Debug.WriteLine(isKnown);
-
-            if (isKnown)
+            if (newer)
             {
-                ChatMessage botMsg = bot.listMessages.Find(
-                    r => ChatMessage.satanize(msg.content).Equals(ChatMessage.satanize(r.content))
-                );
-                botMsg.score++;
+                string input = textBox1.Text;
+                textBox1.Text = "";
 
-                Debug.WriteLine(botMsg.content);
+                write("User: " + input);
 
-                //previousMessage.responses.Add(msg);
-                botMsg.responses.Add(previousMessage);
-
-                Debug.WriteLine(botMsg.content);
-
-                write("Bot : " + Tools.GetHighterScoreResponse(botMsg.responses).content);
+                newer = false;
+                int size = bot.listMessages.Count();
+                ChatMessage message = bot.listMessages[size - 1];
+                message.responses.Add(new ChatMessage(bot, input));
             }
             else
             {
-                ChatMessage Response = Tools.GetHighterScoreResponse(bot.listMessages);
-                write("Bot: " + Response.content);
-                bot.listMessages.Add(msg);
+                string input = textBox1.Text;
+                textBox1.Text = "";
+
+                write("User: " + input);
+
+                ChatMessage msg = new ChatMessage(human, input);
+
+                bool isKnown = bot.ContainMessage(msg);
+
+                if (isKnown)
+                {
+                    ChatMessage botMsg = bot.listMessages.Find(
+                        r => ChatMessage.satanize(msg.content).Equals(ChatMessage.satanize(r.content))
+                    );
+
+                    write(botMsg.responses[0].content);
+                }
+                else
+                {
+                    
+                    write("Bot: " + bot.defaultMessage.content);
+                    newer = true;
+                    bot.listMessages.Add(msg);
+                   
+                    
+                }
             }
             
-            previousMessage = msg;
         }
 
         public void write(string payload)

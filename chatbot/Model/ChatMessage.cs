@@ -26,7 +26,7 @@ namespace chatbot.Model
         public static string satanize(string payload)
         {
             string cleanResponse = "";
-            var charsToRemove = new string[] {",", ".", ";", "'", " " };
+            var charsToRemove = new string[] {",", ".", ";", "\'", " ", "?", "!" };
 
             cleanResponse = payload.ToLower();
 
@@ -35,7 +35,7 @@ namespace chatbot.Model
                 cleanResponse = cleanResponse.Replace(c, string.Empty);
             }
 
-            return cleanResponse;
+            return payload;
         }
     }
 }
