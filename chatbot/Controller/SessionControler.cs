@@ -10,7 +10,7 @@ namespace chatbot.Controller
     public class SessionControler
     {
         private static SessionControler instance;
-        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        //private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public static SessionControler getInstance()
         {
             return instance;
@@ -23,10 +23,10 @@ namespace chatbot.Controller
             }
         }
 
-        public ILog getLog()
+        /*public ILog getLog()
         {
             return log;
-        }
+        }*/
 
         
     }

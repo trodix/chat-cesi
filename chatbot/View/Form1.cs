@@ -30,7 +30,7 @@ namespace chatbot
             KeyPreview = true;
             KeyUp += new KeyEventHandler(TextBox1_KeyUp);
             SessionControler.init();
-            SessionControler.getInstance().getLog().Info(DateTime.Now + " : init OK");
+            //SessionControler.getInstance().getLog().Info(DateTime.Now + " : init OK");
 
         }
 
@@ -99,15 +99,14 @@ namespace chatbot
                         );
 
                         write("Bot: " + botMsg.responses[0].content);
+                        SessionControler session = SessionControler.getInstance();
+                        //session.getLog().Error("bite");
                     }
                     else
                     {
-
                         write("Bot: " + bot.defaultMessage.content);
                         newer = true;
                         bot.listMessages.Add(msg);
-
-
                     }
                 }
             }
