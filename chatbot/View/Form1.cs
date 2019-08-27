@@ -49,10 +49,22 @@ namespace chatbot
             Response();
         }
 
-        public void write(string payload)
+        public void Write(string payload, string pUserType)
         {
-            richTextBox1.AppendText(payload);
-            richTextBox1.AppendText(Environment.NewLine);
+            MessageBox msg = new MessageBox(payload, pUserType);
+
+            msg.BringToFront();
+            msg.Enabled = true;
+            msg.Visible = true;
+            msg.Top = 0;
+            msg.Left = 0;
+
+            flowLayoutPanel1.Controls.Add(msg);
+            flowLayoutPanel1.Enabled = true;
+            flowLayoutPanel1.Visible = true;
+
+            /*richTextBox1.AppendText(payload);
+            richTextBox1.AppendText(Environment.NewLine);*/
         }
 
         private void TextBox1_KeyUp(object sender, KeyEventArgs e)
@@ -74,7 +86,6 @@ namespace chatbot
             {
                 if (newer)
                 {
-
                     newer = false;
                     int size = bot.listMessages.Count();
                     ChatMessage message = bot.listMessages[size - 1];
@@ -83,8 +94,7 @@ namespace chatbot
                 else
                 {
 
-
-                    write("User: " + input);
+                    Write(input, "human");
 
                     ChatMessage msg = new ChatMessage(human, input);
 
@@ -96,12 +106,12 @@ namespace chatbot
                             r => ChatMessage.satanize(msg.content).Equals(ChatMessage.satanize(r.content))
                         );
 
-                        write("Bot: " + botMsg.responses[0].content);
+                        Write(botMsg.responses[0].content, "bot");
                     }
                     else
                     {
 
-                        write("Bot: " + bot.defaultMessage.content);
+                        Write(bot.defaultMessage.content, "bot");
                         newer = true;
                         bot.listMessages.Add(msg);
 
@@ -111,16 +121,26 @@ namespace chatbot
             }
             else
             {
-                write("Bot: Ecris quelque chose banane !");
+                Write("Ecris quelque chose banane !", "bot");
             }
             
         }
 
         private void RichTextBox1_TextChanged(object sender, EventArgs e)
         {
-            richTextBox1.SelectionStart = richTextBox1.Text.Length;
+            //richTextBox1.SelectionStart = richTextBox1.Text.Length;
             // scroll it automatically
-            richTextBox1.ScrollToCaret();
+            //richTextBox1.ScrollToCaret();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void flowLayoutPanel1_ControlAdded(object sender, ControlEventArgs e)
+        {
+            flowLayoutPanel1.VerticalScroll.Value = flowLayoutPanel1.VerticalScroll.Maximum;
         }
     }
 }
