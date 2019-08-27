@@ -121,7 +121,7 @@ namespace chatbot
             }
             else
             {
-                Write("Bot: Ecris quelque chose banane !", "bot");
+                Write("Ecris quelque chose banane !", "bot");
             }
             
         }

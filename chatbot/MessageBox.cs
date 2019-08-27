@@ -7,13 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Reflection;
 
 namespace chatbot
 {
     public partial class MessageBox : UserControl
     {
-        public Image picUser = Image.FromFile("A:/GoogleDrive/2 - CESi/Projet/Chatbot/chat-cesi/chatbot/Assets/user1.png");
-        public Image picBot = Image.FromFile("A:/GoogleDrive/2 - CESi/Projet/Chatbot/chat-cesi/chatbot/Assets/bot.png");
+        public Image picUser = Properties.Resources.user1;
+        public Image picBot = Properties.Resources.bot;
 
         public MessageBox()
         {

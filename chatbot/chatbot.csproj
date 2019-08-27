@@ -124,6 +124,7 @@
     <Content Include="Assets\bot.png" />
     <Content Include="Assets\playerFace.png" />
     <Content Include="Assets\user1.png" />
+    <None Include="Resources\picBot.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

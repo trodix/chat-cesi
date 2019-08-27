@@ -83,6 +83,7 @@
             // 
             // Form1
             // 
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(522, 683);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
