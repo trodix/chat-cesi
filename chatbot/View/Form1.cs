@@ -37,7 +37,7 @@ namespace chatbot
         private void init()
         {
             myChat = new Chat();
-
+            //bite 
             bot = new Bot();
 
             human = new Human();
